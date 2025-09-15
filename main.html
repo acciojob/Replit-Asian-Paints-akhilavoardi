@@ -1,16 +1,95 @@
 <!DOCTYPE html>
-
 <html>
+    <head>
+        <title>Replit asian paints</title>
+        <style>
+         
+            .container{
+                    display: grid;
+                    grid-template-columns:repeat(3,100px);
+                    grid-template-rows: repeat(3,100px);
+                    justify-content: center;
+                    gap: 20px;
+            }
+            .grid-items{
+                    border: 2px solid black;
+                    font-size: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    /* text-align: center;
+                    align-content: center; */
 
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
+            }
+            .actions{
+                display: flex;
+                justify-content: center;
+                margin-top: 50px;
+                gap: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="grid-items" id="1">1</div>
+            <div class="grid-items" id="2">2</div>
+            <div class="grid-items" id="3">3</div>
+            <div class="grid-items" id="4">4</div>
+            <div class="grid-items" id="5">5</div>
+            <div class="grid-items" id="6">6</div>
+            <div class="grid-items" id="7">7</div>
+            <div class="grid-items" id="8">8</div>
+            <div class="grid-items" id="9">9</div>
 
-<body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+        </div>
+        <form class="actions" id="color-form">
+            <label for="selectBox">Select Box</label>
+            <input type="text" id="selectBox" required>
 
-</body>
+            <label for="enterColor">Enter Color</label>
+            <input type="text" id="enterColor" required>
 
+            <input type="submit" value="submit">
+        </form>
+
+        <script>
+            const form = document.getElementById("color-form")
+            const boxes = document.querySelectorAll(".grid-items")
+
+            form.addEventListener("submit",getAndApplyColor)
+
+
+            function getAndApplyColor(e){
+                    e.preventDefault()
+
+                const selectedBox = e.target[0].value
+                const selectedColor = e.target[1].value
+
+                console.log(typeof selectedBox,selectedBox,'selected box')
+                if(parseInt(selectedBox) > 0 && parseInt(selectedBox)<10){
+
+                    e.target.reset()
+    
+                    clearBg()
+    
+                    const targetBox = document.getElementById(selectedBox)
+                    targetBox.style.backgroundColor = selectedColor
+    
+                    console.log(selectedBox,selectedColor)
+                }else{
+                    alert("Enter valid box number")
+                }
+                // console.log(e,'event from form')
+            }
+
+            // Set bg color of fall boxes to transparent
+            function clearBg(){
+                  for(box of boxes){
+                    box.style.backgroundColor = "transparent"
+                }
+            }
+
+            
+        </script>
+    </body>
 </html>
