@@ -1,95 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Replit asian paints</title>
-        <style>
-         
-            .container{
-                    display: grid;
-                    grid-template-columns:repeat(3,100px);
-                    grid-template-rows: repeat(3,100px);
-                    justify-content: center;
-                    gap: 20px;
-            }
-            .grid-items{
-                    border: 2px solid black;
-                    font-size: 2rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    /* text-align: center;
-                    align-content: center; */
+<head>
+  <title>Replit Asian Paints</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-template-rows: repeat(3, 50px);
+      gap: 10px;
+      justify-content: center;
+    }
+    .grid-item {
+      border: 2px solid black;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid-item" id="box-1">1</div>
+    <div class="grid-item" id="box-2">2</div>
+    <div class="grid-item" id="box-3">3</div>
+    <div class="grid-item" id="box-4">4</div>
+    <div class="grid-item" id="box-5">5</div>
+    <div class="grid-item" id="box-6">6</div>
+    <div class="grid-item" id="box-7">7</div>
+    <div class="grid-item" id="box-8">8</div>
+    <div class="grid-item" id="box-9">9</div>
+  </div>
 
-            }
-            .actions{
-                display: flex;
-                justify-content: center;
-                margin-top: 50px;
-                gap: 1rem;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="grid-items" id="1">1</div>
-            <div class="grid-items" id="2">2</div>
-            <div class="grid-items" id="3">3</div>
-            <div class="grid-items" id="4">4</div>
-            <div class="grid-items" id="5">5</div>
-            <div class="grid-items" id="6">6</div>
-            <div class="grid-items" id="7">7</div>
-            <div class="grid-items" id="8">8</div>
-            <div class="grid-items" id="9">9</div>
+  <div class="actions">
+    <label for="block_id">Select Box</label>
+    <input type="text" id="block_id" required>
+    <label for="colour_id">Enter Color</label>
+    <input type="text" id="colour_id" required>
+    <button id="change_button">Change</button>
+    <button id="reset_button" type="button">Reset</button>
+  </div>
 
-        </div>
-        <form class="actions" id="color-form">
-            <label for="selectBox">Select Box</label>
-            <input type="text" id="selectBox" required>
+  <script>
+    function paintBox(selectedBox, enteredColor) {
+      if (/^[1-9]$/.test(selectedBox)) {
+        // reset all first
+        document.querySelectorAll(".grid-item")
+          .forEach(box => box.style.backgroundColor = "transparent");
+        // then color the chosen one
+        document.getElementById("box-" + selectedBox).style.backgroundColor = enteredColor;
+      }
+    }
 
-            <label for="enterColor">Enter Color</label>
-            <input type="text" id="enterColor" required>
+    document.getElementById("change_button").addEventListener("click", function(e) {
+      e.preventDefault();
+      const selectedBox = document.getElementById("block_id").value.trim();
+      const enteredColor = document.getElementById("colour_id").value.trim();
+      paintBox(selectedBox, enteredColor);
+      document.getElementById("block_id").value = "";
+      document.getElementById("colour_id").value = "";
+    });
 
-            <input type="submit" value="submit">
-        </form>
-
-        <script>
-            const form = document.getElementById("color-form")
-            const boxes = document.querySelectorAll(".grid-items")
-
-            form.addEventListener("submit",getAndApplyColor)
-
-
-            function getAndApplyColor(e){
-                    e.preventDefault()
-
-                const selectedBox = e.target[0].value
-                const selectedColor = e.target[1].value
-
-                console.log(typeof selectedBox,selectedBox,'selected box')
-                if(parseInt(selectedBox) > 0 && parseInt(selectedBox)<10){
-
-                    e.target.reset()
-    
-                    clearBg()
-    
-                    const targetBox = document.getElementById(selectedBox)
-                    targetBox.style.backgroundColor = selectedColor
-    
-                    console.log(selectedBox,selectedColor)
-                }else{
-                    alert("Enter valid box number")
-                }
-                // console.log(e,'event from form')
-            }
-
-            // Set bg color of fall boxes to transparent
-            function clearBg(){
-                  for(box of boxes){
-                    box.style.backgroundColor = "transparent"
-                }
-            }
-
-            
-        </script>
-    </body>
+    document.getElementById("reset_button").addEventListener("click", function() {
+      document.querySelectorAll(".grid-item")
+        .forEach(box => box.style.backgroundColor = "transparent");
+    });
+  </script>
+</body>
 </html>
